@@ -5,7 +5,6 @@ async def analyze_sentiment(text: str, huggingface_client = None):
         huggingface_client = get_huggingface_client()
 
     result = huggingface_client.send_request(text)
-    print(result)
 
     # Result contains labels from 1 to 5 stars with respective scores
     # https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment
