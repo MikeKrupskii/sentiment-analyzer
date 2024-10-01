@@ -1,18 +1,12 @@
 import requests
-from src.config import HUGGINGFACE_API_KEY
+from src.clients.huggingface_client import get_huggingface_client
 
-async def analyze_sentiment(text: str):
-    url = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
-    headers = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}
+async def analyze_sentiment(text: str, huggingface_client = None):
+    if huggingface_client is None:
+        huggingface_client = get_huggingface_client()
 
-    payload = {"inputs": text}
-
-    response = requests.post(url, headers=headers, json=payload)
-
-    print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.content}")
-
-    result = response.json()
+    result = huggingface_client.send_request(text)
+    print(result)
 
     if isinstance(result, list) and isinstance(result[0], list):
         # Result contains positive and negative labels with respective scores
