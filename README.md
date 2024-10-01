@@ -37,9 +37,9 @@ cp .env.template .env
 HUGGINGFACE_API_KEY=put_your_key_here
 ```
 
-## Running the project
+## Running the project - two options
 
-### 1. Using Docker
+### Option 1: Docker
 1. Build and run the Docker container:
 ```bash
 docker compose up --build
@@ -49,7 +49,7 @@ docker compose up --build
 localhost:8000/analyze-sentiment/
 ```
 
-### 2. Using Venv and Pip
+### Option 2: Using Venv and Pip
 1. Set up a virtual environment:
 ```bash
 python3 -m venv .venv
