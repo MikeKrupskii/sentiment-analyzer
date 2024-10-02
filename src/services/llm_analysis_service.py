@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 import time
 
 from src.clients.huggingface_client import get_huggingface_client
@@ -9,12 +10,13 @@ async def analyze_with_llm(text: str, huggingface_client=None, retries=3, backof
     system_prompt = (
         "You are an expert assistant in sentiment analysis. "
         "You will analyze the emotional tone of the user's input and classify it returning a single sentiment label."
+        "Make sure the sentiment starts with an uppercase letter."
     )
     user_prompt = f"User Input: {text}\n"
     assistant_prompt = "Assistant:"
     full_prompt = f"{system_prompt}\n{user_prompt}{assistant_prompt}"
 
-    attempt=0
+    attempt = 0
     while attempt < retries:
         try:
             result = huggingface_client.send_request(full_prompt)
@@ -36,6 +38,6 @@ async def analyze_with_llm(text: str, huggingface_client=None, retries=3, backof
                     time.sleep(backoff)
                     backoff *= 2
                 else:
-                    return "Service too busy or unavailable"
+                    raise HTTPException(status_code=503, detail="Service too busy or unavailable")
             else:
-                return str(e)
+                raise HTTPException(status_code=500, detail=str(e))

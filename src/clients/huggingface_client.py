@@ -11,7 +11,6 @@ class HuggingFaceClient:
         response = requests.post(self.api_url, headers=self.headers, json=payload)
 
         if response.status_code != 200:
-            print(f"Response content: {response.content}")
             raise ValueError(f"Failed to connect to HuggingFace API: {response.status_code}")
 
         return response.json()

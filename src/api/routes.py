@@ -1,5 +1,3 @@
-from unittest.mock import sentinel
-
 from fastapi import APIRouter, Query
 from src.services.sentiment_analysis_service import analyze_sentiment
 from src.services.llm_analysis_service import analyze_with_llm
