@@ -1,5 +1,5 @@
 import pytest
-from src.services.sentiment_service import analyze_sentiment
+from src.services.sentiment_analysis_service import analyze_sentiment
 from unittest.mock import MagicMock
 
 @pytest.mark.asyncio

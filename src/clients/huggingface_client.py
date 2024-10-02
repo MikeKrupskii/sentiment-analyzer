@@ -1,9 +1,9 @@
 import requests
-from src.config import HUGGINGFACE_API_KEY, HUGGINGFACE_MODEL_URL
+from src.config import HUGGINGFACE_API_KEY, SENTIMENT_ANALYSIS_MODEL_URL, LLM_CHAT_COMPLETION_MODEL_URL
 
 class HuggingFaceClient:
-    def __init__(self):
-        self.api_url = HUGGINGFACE_MODEL_URL
+    def __init__(self, llm=False):
+        self.api_url = LLM_CHAT_COMPLETION_MODEL_URL if llm else SENTIMENT_ANALYSIS_MODEL_URL
         self.headers = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}
 
     def send_request(self, text: str):
@@ -15,5 +15,5 @@ class HuggingFaceClient:
 
         return response.json()
 
-def get_huggingface_client():
-    return HuggingFaceClient()
+def get_huggingface_client(llm=False):
+    return HuggingFaceClient(llm=llm)
