@@ -2,7 +2,7 @@ from src.clients.huggingface_client import get_huggingface_client
 
 async def analyze_sentiment(text: str, huggingface_client = None):
     if huggingface_client is None:
-        huggingface_client = get_huggingface_client()
+        huggingface_client = get_huggingface_client(llm=False)
 
     result = huggingface_client.send_request(text)
 
